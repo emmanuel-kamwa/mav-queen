@@ -5,7 +5,9 @@
  *
  * @author emmanuel
  */
-class Kingdom {
+include_once './Queen.php';
+include_once './Coordinates.php';
+class Kingdom {    
 
     public function __construct($n, $m) {
 
@@ -17,15 +19,15 @@ class Kingdom {
         }
         if (!($this->width > 0 && $this->width < 10)) {
             throw new Exception("The width of the kingdom must be gretter than 0 and less than 10");
-        }
-
-        $this->queen = new Queen();
+        }        
     }
 
     public function place_queen($x, $y, $f) {
 
         if (($x < 0) || ($x > ($this->width - 1)) || ($y < 0) || $y > ($this->length - 1))
             throw new Exception("The Queen can not be placed out of kingdom");
+        
+        $this->queen = new Queen();
 
         $this->queen->set_coordinates(new Coordinates($x, $y));
 
@@ -55,11 +57,14 @@ class Kingdom {
     }
 
     public function move_queen() {
+        if(empty($this->queen))
+            return;
+        
         if ($this->allow_queen_move())
             $this->queen->move();
     }        
 
-    public function allow_queen_move() {
+    private function allow_queen_move() {
 
         $queen_coordinates = $this->queen->get_coordinates();
         $queen_direction = $this->queen->get_direction();
@@ -94,9 +99,17 @@ class Kingdom {
         
         return FALSE;
     }
+    
+    public function report_queen() {
+        if(empty($this->queen)){
+            echo 'QUEEN MISSING';
+        }else{
+            echo $this->queen->report();            
+        }                                     
+    }        
 
     private $width;
     private $length;
-    private $queen;
+    private $queen = NULL;
 
 }

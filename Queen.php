@@ -5,6 +5,7 @@
  *
  * @author emmanuel
  */
+include_once 'Coordinates.php';
 class Queen {
         
     private $coordinates;    
@@ -99,7 +100,7 @@ class Queen {
     }
     
     public function report(){
-         return "The Queen is at the position {$this->coordinates->display()} and is facing the {$this->direction} direction";
+         return "{$this->coordinates->display()}, {$this->direction}";
     }
     
     public function set_coordinates(Coordinates $coordinates){

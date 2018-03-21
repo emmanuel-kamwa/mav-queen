@@ -29,7 +29,7 @@ class Coordinates {
     }
 
     public function display() {
-        return "({$this->x},{$this->y})";
+        return "{$this->x},{$this->y}";
     }
     
     public function x_position(){
